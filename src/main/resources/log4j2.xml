@@ -1,0 +1,101 @@
+<Configuration status="WARN" monitorInterval="300">
+	<properties>
+		<property name="LOG_HOME">D:/logs</property>
+	</properties>
+	<Appenders>
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
+		</Console>
+
+		<!-- info级别日志 -->
+		<RollingRandomAccessFile name="InfoFile"
+			fileName="${LOG_HOME}/info.log" filePattern="${LOG_HOME}/$${date:yyyy-MM}/info-%d{yyyy-MM-dd}-%i.log">
+			<Filters>
+				<ThresholdFilter level="warn" onMatch="DENY"
+					onMismatch="NEUTRAL" />
+				<ThresholdFilter level="trace" onMatch="ACCEPT"
+					onMismatch="DENY" />
+			</Filters>
+			<PatternLayout
+				pattern="%date{yyyy-MM-dd HH:mm:ss.SSS} %level [%thread][%file:%line] - %msg%n" />
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+				<SizeBasedTriggeringPolicy size="10 MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="20" />
+		</RollingRandomAccessFile>
+
+		<!-- error级别日志 -->
+		<RollingRandomAccessFile name="ErrorFile"
+			fileName="${LOG_HOME}/error.log" filePattern="${LOG_HOME}/$${date:yyyy-MM}/error-%d{yyyy-MM-dd}-%i.log">
+			<Filters>
+				<ThresholdFilter level="fatal" onMatch="DENY"
+					onMismatch="NEUTRAL" />
+				<ThresholdFilter level="warn" onMatch="ACCEPT"
+					onMismatch="DENY" />
+			</Filters>
+			<PatternLayout
+				pattern="%date{yyyy-MM-dd HH:mm:ss.SSS} %level [%thread][%file:%line] - %msg%n" />
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+				<SizeBasedTriggeringPolicy size="10 MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="20" />
+		</RollingRandomAccessFile>
+
+		<RollingRandomAccessFile name="FatalFile"
+			fileName="${LOG_HOME}/fatal.log" filePattern="${LOG_HOME}/$${date:yyyy-MM}/fatal-%d{yyyy-MM-dd}-%i.log">
+			<Filters>
+				<ThresholdFilter level="fatal" onMatch="ACCEPT"
+					onMismatch="DENY" />
+			</Filters>
+			<PatternLayout
+				pattern="%date{yyyy-MM-dd HH:mm:ss.SSS} %level [%thread][%file:%line] - %msg%n" />
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+				<SizeBasedTriggeringPolicy size="10 MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="20" />
+		</RollingRandomAccessFile>
+		
+		
+		<RollingRandomAccessFile name="SqlFile"
+			fileName="${LOG_HOME}/sql.log" filePattern="${LOG_HOME}/$${date:yyyy-MM}/fatal-%d{yyyy-MM-dd}-%i.log">
+			<PatternLayout
+				pattern="%date{yyyy-MM-dd HH:mm:ss.SSS} %level [%thread][%file:%line] - %msg%n" />
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+				<SizeBasedTriggeringPolicy size="10 MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="20" />
+		</RollingRandomAccessFile>
+
+		<!-- 异步输出日志 -->
+		<Async name="Async">
+			<AppenderRef ref="InfoFile" />
+			<AppenderRef ref="ErrorFile" />
+			<AppenderRef ref="FatalFile" />
+		</Async>
+	</Appenders>
+
+	<Loggers>
+		<!-- 异步输出日志 -->
+		<Logger name="asynclog" level="trace" additivity="false">
+			<AppenderRef ref="Async" />
+		</Logger>
+
+		<!-- mybatis 日志输出 -->
+        <logger name="com.simple.farm.dao" level="debug" additivity="false">  
+            <appender-ref ref="Console"/>
+            <appender-ref ref="SqlFile"/>  
+        </logger>  
+
+
+		<Root level="trace">
+			<!-- <AppenderRef ref="Console" /> -->
+			<AppenderRef ref="InfoFile" />
+			<AppenderRef ref="ErrorFile" />
+			<AppenderRef ref="FatalFile" />
+		</Root>
+	</Loggers>
+</Configuration>  
