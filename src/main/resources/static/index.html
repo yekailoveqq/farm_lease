@@ -2,20 +2,92 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>种植租赁平台</title>
+<link rel="shortcut icon" type="image/x-icon" href="imgs/logo.png" />
+
 <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
 <link rel="stylesheet"
 	href="/pluging/bootstrap-3.3.7-dist/css/bootstrap.min.css" />
+
+<link rel="stylesheet" href="/pages/css/main.css" />
+<link rel="stylesheet" href="/pluging/bootstrap-table-master/dist/bootstrap-table.css">
+<!-- 引入ystep样式 -->
+<link rel="stylesheet" href="/pluging/ystep-master/css/ystep.css">
+
+
 </head>
-<body>
+<body data-scrolling-animations="true" id="indexBody">
+	<!-- 整体页面 -->
+	<div class="b-page">
+		<header id="header">
+			<!-- top -->
+			<div class="header-top">
+				<div class="wrapper">
+					<div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+						<div class="header-info">
+							<div class="description-header">有块地 种点菜 生活本该如此简单</div>
+							<div class="color-primary">+12 3456 7890</div>
+							<div class="color-primary">sayhello@simple.com</div>
+						</div>
+					</div>
+					<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+						<a href="." class="btn extra-color text-uppercase pull-right">加入我们</a>
+					</div>
+				</div>
+			</div>
+			<!-- 显示头部 -->
+			<div class="header-nav">
+				<div class="wrapper">
+					<div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
+						<a href="." class="logo"></a>
+					</div>
 
+					<div class="col-lg-2 col-md-2 col-sm-3 col-xs-6 cart-block-r">
+						<div class="cart-block pull-right">
+							<i class="flaticon-shopping-bag1"></i>
+							<div class="cart-box">
+								<div class="cart-price pull-right">
+									<span class="color-primary text-uppercase">当前购物车:</span> <span
+										class="price">$0.00</span>
+									<div class="items-cart">数量：0</div>
+								</div>
+							</div>
+						</div>
+					</div>
 
+					<div class="col-lg-8 col-md-8 col-sm-7 col-xs-12 nav-box">
+						<span id="toggle-nav" class="ef icon_menu mobile-menu-toggle"></span>
+						<nav class="nav-container">
+							<ul>
+								<li><a class="#" href="index.html">首页</a></li>
+								<li><a class="#" href="about.html">关于我们</a></li>
+								<li><a class="#" href="#" onclick="chooseFile.showModel()">地块选择</a></li>
+								<li><a class="#" href="#">种植操作</a></li>
+								<li><a class="#" href="shop.html">会员中心</a></li>
+								<li><a class="#" href="blog.html">联系我们</a></li>
+							</ul>
+						</nav>
+					</div>
+				</div>
+			</div>
+		</header>
+	</div>
 
 	<script src="/pluging/jquery-3.2.1.min.js"></script>
 	<script src="/pluging/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+	<script src="/pluging/bootstrap-table-master/dist/bootstrap-table.min.js"></script>
+	<script src="/pluging/bootstrap-table-master/dist/locale/bootstrap-table-zh-CN.min.js"></script>
+	
+	
+	<script type="text/javascript"
+		src="/pages/business/js/common/common.js"></script>
+    <script src="/pluging/ystep-master/js/ystep.js"></script>
 
-	<script type="text/javascript">
-		
-	</script>
+	<!-- 业务js -->
+	<script type="text/javascript" src="/pages/business/js/chooseField.js"></script>
+	
+
 </body>
 </html>

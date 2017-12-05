@@ -1,0 +1,123 @@
+<!-- 底宽选择弹出框-->
+<div class="modal fade modalPosition" tabindex="-1" role="dialog"
+	id="chooseFieldModal">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title">种植区域选择</h4>
+			</div>
+
+			<!-- 种植区域选择 主体 -->
+			<div class="modal=body">
+				<!-- 区域商家选择  ——> 商家地块选择-->
+				<!-- 步骤显示 -->
+				<div class="row">
+					<div class="col-md-12 chooseFiled_ystep"></div>
+				</div>
+				<div class="clearfix "></div>
+				<!-- 具体操作内容 -->
+				<div class="container-fluid">
+					<div class="row">
+						<div>
+							<!-- Nav tabs -->
+							<ul class="nav nav-tabs" role="tablist">
+								<li role="presentation" class="active"><a
+									href="#chooseFiled_shopper" aria-controls="home" role="tab"
+									data-toggle="tab">商家选择</a></li>
+								<li role="presentation"><a href="#chooseFiled_field"
+									aria-controls="profile" role="tab" data-toggle="tab">地块选择</a></li>
+								<li role="presentation"><a href="#chooseFiled_term"
+									aria-controls="messages" role="tab" data-toggle="tab">租期选定</a></li>
+								<li role="presentation"><a href="#chooseFiled_finishd"
+									aria-controls="settings" role="tab" data-toggle="tab">支付</a></li>
+							</ul>
+
+							<!-- Tab panes -->
+							<div class="tab-content">
+								<div role="tabpanel" class="tab-pane active"
+									id="chooseFiled_shopper">
+									<!-- 筛选条件 -->
+									<div class="container-fluid">
+										<div class="row">
+											<form class="form-inline">
+												<div class="form-group">
+													<label for="chooseFiled_provice">省份</label> <select
+														class="form-control" id="chooseFiled_provice">
+														<option>江苏</option>
+														<option>北京</option>
+														<option>上海</option>
+														<option>浙江</option>
+													</select>
+												</div>
+
+												<div class="form-group">
+													<label for="chooseFiled_city">城市</label> <select
+														class="form-control" id="chooseFiled_city">
+														<option>南通</option>
+														<option>无锡</option>
+														<option>常州</option>
+														<option>苏州</option>
+													</select>
+												</div>
+
+												<div class="form-group">
+													<label for="chooseFiled_town">城镇</label> <select
+														class="form-control" id="chooseFiled_town">
+														<option>如皋</option>
+														<option>启东</option>
+														<option>通州</option>
+														<option>崇川区</option>
+													</select>
+												</div>
+												
+<!-- 												<div class="form-group">
+													<label for="chooseFiled_key"></label>
+													<input type="text" class="form-control" id="chooseFiled_key" placeholder="关键字">
+												</div> -->
+												
+												<div class="form-group">
+													<label for="chooseFiled_key"></label>
+													<input type="button" class="form-control btn-sucess" id="chooseFiled_submit" value="查询"/> 
+												</div>
+											</form>
+										</div>
+									</div>
+									<!-- 筛选结果 -->
+									<div class="container-fluid">
+										<div class="row">
+											
+										
+										
+										
+										</div>
+									</div>
+									
+									<!-- 结果操作 -->
+									<div class="row"></div>
+
+								</div>
+								<div role="tabpanel" class="tab-pane" id="chooseFiled_field">...</div>
+								<div role="tabpanel" class="tab-pane" id="chooseFiled_term">...</div>
+								<div role="tabpanel" class="tab-pane" id="chooseFiled_finishd">...</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+
+
+
+			</div>
+
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+				<button type="button" class="btn btn-primary">确定</button>
+			</div>
+		</div>
+	</div>
+</div>
