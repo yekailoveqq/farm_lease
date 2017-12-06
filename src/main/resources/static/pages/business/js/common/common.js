@@ -23,12 +23,22 @@ common.loadHtmlToBody = function(id,path) {
 
 /**
  * 初始化表格
+ * tableId 表格id
+ * columnsArray 列数组
+ * queryParamsFunction 获取查询参数的方法
  */
-common.initTable = function(tableId,columnsArray){
-	$('#table').bootstrapTable({
+common.initTable = function(tableId,columnsArray,url,queryParamsFunction){
+	$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['zh-CN']);
+	$(tableId).bootstrapTable({
 		columns:columnsArray,
 		pagination:true,
-		search:true
+		search:true,
+		contentType:'application/json',
+		url:url,
+		queryParams:queryParamsFunction,
+		pageSize: 10,  
+		pageNumber: 1,  
+		pageList: [10, 20, 50, 100, 200, 500]  
 		
 	});
 }

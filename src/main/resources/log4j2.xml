@@ -92,7 +92,7 @@
 
 
 		<Root level="trace">
-			<!-- <AppenderRef ref="Console" /> -->
+			<AppenderRef ref="Console" />
 			<AppenderRef ref="InfoFile" />
 			<AppenderRef ref="ErrorFile" />
 			<AppenderRef ref="FatalFile" />

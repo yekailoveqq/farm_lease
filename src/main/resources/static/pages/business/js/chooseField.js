@@ -43,4 +43,38 @@ chooseFile.showModel = function(){
 		}
 
 	});
+	
+	//初始化表格
+	chooseFile.initTable();
+}
+
+
+/**
+ * 初始化表格
+ */
+chooseFile.initTable = function(){
+	//设置列
+	var cols = new Array();
+	cols.push({field:'merchantName',title:'商家名字'});
+	cols.push({field:'merchantAddress',title:'详细地址'});
+	cols.push({field:'merchantFieldSize',title:'占地面积'});
+	cols.push({field:'merchantPhone',title:'联系电话'});
+	common.initTable("#chooseFiled_shopper_table",cols,'/merchant/query',chooseFile.queryParams);
+}
+
+/**
+ * 获取查询条件
+ */
+chooseFile.queryParams = function(queryParams){
+	queryParams.provice = $("#chooseFiled_provice").val();
+	queryParams.city = $("#chooseFiled_city").val();
+	queryParams.town = $("#chooseFiled_town").val();
+	return queryParams;
+}
+
+/**
+ * 点击查询时候 从新查询表格内容
+ */
+chooseFile.buttonQuery = function(){
+	$("#chooseFiled_shopper_table").bootstrapTable('refresh', {});
 }
