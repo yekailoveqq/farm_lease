@@ -3,10 +3,15 @@
  */
 var chooseFile = new Object();
 
+chooseFile.chooseChantId = '';	//记录当前选中的商家
+
+
 /**
  * 弹出选择界面
  */
 chooseFile.showModel = function(){
+	//清空临时变量
+	chooseFile.chooseChantId = '';
 	//没有加载
 	if(!$("#chooseFieldModal").length>0){
 		common.loadHtmlToBody("#indexBody","/pages/business/chooseField.html");
@@ -46,8 +51,19 @@ chooseFile.showModel = function(){
 	
 	//初始化表格
 	chooseFile.initTable();
+	chooseFile.forbidTab();
 }
 
+
+/**
+ * 取消tab页切换
+ */
+chooseFile.forbidTab = function(){
+	//阻止标签页手动切换
+	$('a[role="tab"]').on('show.bs.tab', function(e) {
+		  e.preventDefault();
+		});
+}
 
 /**
  * 初始化表格
@@ -59,7 +75,16 @@ chooseFile.initTable = function(){
 	cols.push({field:'merchantAddress',title:'详细地址'});
 	cols.push({field:'merchantFieldSize',title:'占地面积'});
 	cols.push({field:'merchantPhone',title:'联系电话'});
-	common.initTable("#chooseFiled_shopper_table",cols,'/merchant/query',chooseFile.queryParams);
+	common.initTable("#chooseFiled_shopper_table",cols,'/merchant/query',chooseFile.queryParams,chooseFile.clickRow);
+	
+	//注册表格点击事件
+/*	$("#chooseFiled_shopper_table").on('click-row.bs.table', function (e, row, element){
+		$('.success').removeClass('success');//去除之前选中的行的，选中样式
+		$(element).addClass('success');//添加当前选中的 success样式用于区别
+		var index = $('#formTempDetailTable_new').find('tr.success').data('index');//获得选中的行的id
+		}); */
+	
+	
 }
 
 /**
@@ -77,4 +102,48 @@ chooseFile.queryParams = function(queryParams){
  */
 chooseFile.buttonQuery = function(){
 	$("#chooseFiled_shopper_table").bootstrapTable('refresh', {});
+}
+
+/**
+ * 单击行触发的方法
+ */
+chooseFile.clickRow = function(row){
+	chooseFile.chooseChantId = row.id;	//将当前选中的商家id赋值给临时变量
+}
+
+/**
+ * 下一步操作内容
+ */
+chooseFile.next = function(step) {
+	$('a[role="tab"]').unbind();
+	switch (step) {
+	case 1:
+		if(chooseFile.chooseChantId==''){
+			alert('请选择商家后进行下一步操作！')
+		}
+		else{
+			//步骤跳转
+			$(".chooseFiled_ystep").nextStep();
+			//tab跳转下一个面板 地块选择
+			$('a[href="#chooseFiled_field"]').tab('show');
+			
+			//开始设置可选地块界面
+			chooseFile.initFieldBlock();
+			
+		}
+		break;
+	}
+	chooseFile.forbidTab();
+}
+
+
+
+
+/**
+ * 初始化地块
+ */
+chooseFile.initFieldBlock = function(){
+	//后台查询当前商家的地块信息
+	common.ajax('/merchant/getFileds','GET','merChantId='+chooseFile.chooseChantId,function(result){
+		console.log('dd');});
 }

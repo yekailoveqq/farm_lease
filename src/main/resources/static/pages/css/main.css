@@ -4015,5 +4015,34 @@ h4.border {
 /* 模态框弹出位置 控制  */
 .modalPosition {
         position: absolute;
-        top: 200px;
-    }
+        top: 100px;
+        height:800px;
+        weight:960px;
+}
+
+/*
+	span 颜色
+*/
+.lockSpan{
+	background-color:#FFD306;
+	width:20px;
+	height:20px;
+}
+    
+.freeSpan{
+	background-color:#00BB00;
+	width:20px;
+	height:20px;
+}
+
+.useSpan{
+	background-color:#808040;
+	width:20px;
+	height:20px;
+}
+.chooseSpan{
+	background-color:#F75000;
+	width:20px;
+	height:20px;
+}
+
