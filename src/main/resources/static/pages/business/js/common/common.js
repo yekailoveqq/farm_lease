@@ -77,6 +77,15 @@ common.ajax = function(url,type,data,successFunction,errorFunction){
  */
 common.initFiledGui = function(fileds,colNum,containerId){
 	var tArray = new Array();
+	/*seats: {
+		a: {
+			price       : 24.55,
+			description : 'Fair priced seat!'
+		}
+	}
+	*/
+	
+	var seatsSet = new Object();
 	//计算需要多少行
 	var h = Math.ceil(fileds.length/colNum);	//向上取整
 	for(var i = 0;i<h;i++){
@@ -86,7 +95,8 @@ common.initFiledGui = function(fileds,colNum,containerId){
 			var index = i*colNum+j;
 			if(index<fileds.length){
 //				hArray.push(fileds[index]);
-				hArray= hArray+'a';
+				hArray= hArray+'a'+index;
+				
 			}
 			else{
 				hArray= hArray+'_';
@@ -105,8 +115,8 @@ common.initFiledGui = function(fileds,colNum,containerId){
 				return row + '_' + column;
 			},
 			getLabel : function (character, row, column) {
-				//return column;
-				return (row-1)*8+column;
+				return character;
+				//return (row-1)*8+column;
 			}
 			
 		}
