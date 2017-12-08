@@ -67,3 +67,49 @@ common.ajax = function(url,type,data,successFunction,errorFunction){
 		   }:errorFunction
 		});
 }
+
+
+
+/**
+ * 创建地块选择界面
+ * fileds 地块集合
+ * colNum 需要划分的列数量
+ */
+common.initFiledGui = function(fileds,colNum,containerId){
+	var tArray = new Array();
+	//计算需要多少行
+	var h = Math.ceil(fileds.length/colNum);	//向上取整
+	for(var i = 0;i<h;i++){
+		var hArray ="";
+//		var hArray = new Array();
+		for(var j = 0;j<colNum;j++){
+			var index = i*colNum+j;
+			if(index<fileds.length){
+//				hArray.push(fileds[index]);
+				hArray= hArray+'a';
+			}
+			else{
+				hArray= hArray+'_';
+			}
+		}
+		
+//		tArray.push(hArray.toString());
+		tArray.push(hArray);
+	}
+	var sc = $(containerId).seatCharts({
+		map: tArray,
+		naming  : {
+			top    : false,
+			left   : false,
+			getId  : function(character, row, column) {
+				return row + '_' + column;
+			},
+			getLabel : function (character, row, column) {
+				//return column;
+				return (row-1)*8+column;
+			}
+			
+		}
+		
+	});
+}

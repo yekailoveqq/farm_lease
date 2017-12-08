@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.github.pagehelper.Page;
 import com.simple.farm.bean.common.PageBean;
+import com.simple.farm.bean.merChant.FiledInfo;
 import com.simple.farm.bean.merChant.MerchantInfo;
 
 public interface MerChantService {
@@ -15,5 +16,12 @@ public interface MerChantService {
 	 * @return
 	 */
 	Page<MerchantInfo> getMerChanInfoList(MerchantInfo merChantInfo,PageBean<MerchantInfo> pageInfo);
+	
+	/**
+	 * 根据商家id 获取当前商家的所有地块信息
+	 * @param merChantId
+	 * @return
+	 */
+	List<FiledInfo> getFiledsByMerChantId(int merChantId);
 	
 }

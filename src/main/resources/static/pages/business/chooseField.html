@@ -73,15 +73,16 @@
 														<option>崇川区</option>
 													</select>
 												</div>
-												
-<!-- 												<div class="form-group">
+
+												<!-- 												<div class="form-group">
 													<label for="chooseFiled_key"></label>
 													<input type="text" class="form-control" id="chooseFiled_key" placeholder="关键字">
 												</div> -->
-												
+
 												<div class="form-group">
-													<label for="chooseFiled_key"></label>
-													<input type="button" class="form-control btn-sucess" id="chooseFiled_submit" value="查询" onclick="chooseFile.buttonQuery()"/> 
+													<label for="chooseFiled_key"></label> <input type="button"
+														class="form-control btn-sucess" id="chooseFiled_submit"
+														value="查询" onclick="chooseFile.buttonQuery()" />
 												</div>
 											</form>
 										</div>
@@ -89,19 +90,21 @@
 									<!-- 筛选结果 -->
 									<div class="container-fluid">
 										<div class="row table-responsive">
-											<table id="chooseFiled_shopper_table" class="table text-nowrap"></table>
+											<table id="chooseFiled_shopper_table"
+												class="table text-nowrap"></table>
 										</div>
 									</div>
 									<!-- 下一步操作 -->
 									<div class="row">
 										<div class="col-md-6 col-md-offset-6">
-											<button class="btn btn-success" onclick="chooseFile.next(1)">下一步</button>											
+											<button class="btn btn-success" onclick="chooseFile.next(1)">下一步</button>
 										</div>
 									</div>
 								</div>
-								
+
 								<!-- 选择地块 -->
-								<div role="tabpanel" class="tab-pane fade" id="chooseFiled_field">
+								<div role="tabpanel" class="tab-pane fade"
+									id="chooseFiled_field">
 									<h4 class="text-center">点击选择可以用的地块</h4>
 									<div class="row">
 										<div class="col-md-3">
@@ -117,10 +120,20 @@
 											<span class="chooseSpan btn"></span><label>当前选择的地块</label>
 										</div>
 									</div>
+									<!-- 地块界面 -->
+									<div class="container-fluid">
+										<div class="row">
+											<div class="col-md-8">
+												<div class="row" id="filed_gui"></div>
+											</div>
+											<div class="col-md-4"></div>
+										</div>
+									</div>
 
 								</div>
 								<div role="tabpanel" class="tab-pane fade" id="chooseFiled_term">...</div>
-								<div role="tabpanel" class="tab-pane fade" id="chooseFiled_finishd">...</div>
+								<div role="tabpanel" class="tab-pane fade"
+									id="chooseFiled_finishd">...</div>
 							</div>
 						</div>
 					</div>

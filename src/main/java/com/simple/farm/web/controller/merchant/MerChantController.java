@@ -39,7 +39,8 @@ public class MerChantController {
 	 */
 	@RequestMapping("/getFileds")
 	public List<FiledInfo> getFiledsByMerChantId(int merChantId){
-		return null;
+		 List<FiledInfo> result = merChantService.getFiledsByMerChantId(merChantId);
+		 return result;
 	}
 	
 	

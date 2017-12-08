@@ -145,5 +145,8 @@ chooseFile.next = function(step) {
 chooseFile.initFieldBlock = function(){
 	//后台查询当前商家的地块信息
 	common.ajax('/merchant/getFileds','GET','merChantId='+chooseFile.chooseChantId,function(result){
-		console.log('dd');});
+		console.log(result);
+		//根据返回结果创建map
+		common.initFiledGui(result,8,"#filed_gui");
+	});
 }
