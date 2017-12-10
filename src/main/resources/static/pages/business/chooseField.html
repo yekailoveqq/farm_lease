@@ -106,7 +106,7 @@
 								<div role="tabpanel" class="tab-pane fade"
 									id="chooseFiled_field">
 									<h4 class="text-center">点击选择可以用的地块</h4>
-									<div class="row">
+									<!-- 									<div class="row">
 										<div class="col-md-3">
 											<span class="freeSpan btn"></span><label>可用地块</label>
 										</div>
@@ -119,14 +119,61 @@
 										<div class="col-md-3">
 											<span class="chooseSpan btn"></span><label>当前选择的地块</label>
 										</div>
-									</div>
+									</div> -->
 									<!-- 地块界面 -->
 									<div class="container-fluid">
 										<div class="row">
-											<div class="col-md-8">
-												<div class="row" id="filed_gui"></div>
+											<div class="col-md-7 col-md-offset-1 ">
+												<div class="from-group">
+													<div class="row" id="filed_gui"></div>
+												</div>
 											</div>
-											<div class="col-md-4"></div>
+											<div class="col-md-4">
+												<!-- 图例 -->
+												<div class="container-fluid">
+													<div class="row">
+														<div class="col-md-4">
+																<div class="seatCharts-seat seatCharts-cell available first-class"></div>
+																<span class="seatCharts-legendDescription">可选</span>
+														</div>
+														<div class="col-md-4">
+																<div class="seatCharts-seat seatCharts-cell unavailable second-class"></div>
+																<span class="seatCharts-legendDescription">锁定</span>
+														</div>
+														<div class="col-md-4">
+																<div class="seatCharts-seat seatCharts-cell unavailable three-class"></div>
+																<span class="seatCharts-legendDescription">在租</span>
+														</div>
+													</div>
+												</div>
+												
+												<!-- 点击显示详情 -->
+												<div class="clearfix"></div>
+												<div class="container-fluid">
+													<div class="row">
+														<div class="col-md-12">
+															<table class="table">
+																<tr>
+																	<td>地块编号</td>
+																	<td name="chooseField_showFieldInfo"></td>
+																</tr>
+																<tr>
+																	<td>监控预览</td>
+																	<td name="chooseField_showFieldInfo"></td>
+																</tr>
+																<tr>
+																	<td>大小（m<sup>2</sup>）</td>
+																	<td name="chooseField_showFieldInfo"></td>
+																</tr>
+																<tr>
+																	<td>当前状态</td>
+																	<td name="chooseField_showFieldInfo"></td>
+																</tr>
+															</table>
+														</div>
+													</div>
+												</div>
+											</div>
 										</div>
 									</div>
 
@@ -138,11 +185,6 @@
 						</div>
 					</div>
 				</div>
-
-
-
-
-
 			</div>
 
 			<div class="modal-footer">

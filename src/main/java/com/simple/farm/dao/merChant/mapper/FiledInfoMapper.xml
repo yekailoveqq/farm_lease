@@ -60,4 +60,12 @@
       </if>
     </trim>
   </insert> -->
+  
+  <!-- 使用version 作为乐观锁判断 -->
+  <update id="lockState" parameterType="com.simple.farm.bean.merChant.FiledInfo">
+  	update filed_info set state = #{state},version = version+1 where id = #{id} and version = #{version}
+  </update>
+  
+  
+  
 </mapper>

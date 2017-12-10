@@ -43,5 +43,16 @@ public class MerChantController {
 		 return result;
 	}
 	
+	/**
+	 * 地块锁定切换
+	 * @param state 
+	 * @param filedId
+	 * @return
+	 */
+	@RequestMapping("/lockState")
+	public boolean updateFiledState(String state,int filedId){
+		return merChantService.changeFiledLockState(state,filedId);
+	}
+	
 	
 }

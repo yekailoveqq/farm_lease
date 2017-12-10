@@ -37,4 +37,20 @@ public class MerChantServiceImpl implements MerChantService {
 		return filedInfoMapper.select(filedInfo);
 	}
 
+	@Override
+	public boolean changeFiledLockState(String state, int filedId) {
+		/**
+		 * 数据库使用乐观锁机制 防止并非选择地块 同时锁定问题
+		 */
+		FiledInfo filedInfo = new FiledInfo();
+		filedInfo.setId(filedId);
+		filedInfo = filedInfoMapper.selectOne(filedInfo);
+		filedInfo.setState(state);
+		int r = filedInfoMapper.lockState(filedInfo);
+		return r==1?true:false;
+	}
+	
+	
+	
+
 }

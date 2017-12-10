@@ -12,6 +12,8 @@ public class FiledInfo {
     private String name;
 
     private String state;
+    
+    private Integer version;
 
     public Integer getId() {
         return id;
@@ -60,4 +62,14 @@ public class FiledInfo {
     public void setState(String state) {
         this.state = state == null ? null : state.trim();
     }
+
+	public Integer getVersion() {
+		return version;
+	}
+
+	public void setVersion(Integer version) {
+		this.version = version;
+	}
+    
+    
 }

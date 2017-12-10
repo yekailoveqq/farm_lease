@@ -1,6 +1,6 @@
 <Configuration status="WARN" monitorInterval="300">
 	<properties>
-		<property name="LOG_HOME">D:/logs</property>
+		<property name="LOG_HOME">E:/logs</property>
 	</properties>
 	<Appenders>
 		<Console name="Console" target="SYSTEM_OUT">

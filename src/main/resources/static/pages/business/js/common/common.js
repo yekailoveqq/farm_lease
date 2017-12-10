@@ -17,7 +17,7 @@ common.loadHtmlToBody = function(id,path) {
 			//加载到页面
 			$(id).append(data);
 		}
-	})
+	});
 }
 
 
@@ -56,70 +56,15 @@ common.initTable = function(tableId,columnsArray,url,queryParamsFunction,clickFu
 /**
  * 封装ajax调用方法
  */
-common.ajax = function(url,type,data,successFunction,errorFunction){
+common.ajax = function(url,type,data,successFunction,errorFunction,isasync){
 	$.ajax({
 		   type: type,
 		   url: url,
 		   data: data,
+		   async:isasync==null?true:isasync,
 		   success:successFunction,
 		   error:errorFunction==null?function(e){
 			   alert('ajax调用错误,'+e);
 		   }:errorFunction
 		});
-}
-
-
-
-/**
- * 创建地块选择界面
- * fileds 地块集合
- * colNum 需要划分的列数量
- */
-common.initFiledGui = function(fileds,colNum,containerId){
-	var tArray = new Array();
-	/*seats: {
-		a: {
-			price       : 24.55,
-			description : 'Fair priced seat!'
-		}
-	}
-	*/
-	
-	var seatsSet = new Object();
-	//计算需要多少行
-	var h = Math.ceil(fileds.length/colNum);	//向上取整
-	for(var i = 0;i<h;i++){
-		var hArray ="";
-//		var hArray = new Array();
-		for(var j = 0;j<colNum;j++){
-			var index = i*colNum+j;
-			if(index<fileds.length){
-//				hArray.push(fileds[index]);
-				hArray= hArray+'a'+index;
-				
-			}
-			else{
-				hArray= hArray+'_';
-			}
-		}
-		
-//		tArray.push(hArray.toString());
-		tArray.push(hArray);
-	}
-	var sc = $(containerId).seatCharts({
-		map: tArray,
-		naming  : {
-			top    : false,
-			left   : false,
-			getId  : function(character, row, column) {
-				return row + '_' + column;
-			},
-			getLabel : function (character, row, column) {
-				return character;
-				//return (row-1)*8+column;
-			}
-			
-		}
-		
-	});
 }

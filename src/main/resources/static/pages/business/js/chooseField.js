@@ -147,6 +147,144 @@ chooseFile.initFieldBlock = function(){
 	common.ajax('/merchant/getFileds','GET','merChantId='+chooseFile.chooseChantId,function(result){
 		console.log(result);
 		//根据返回结果创建map
-		common.initFiledGui(result,8,"#filed_gui");
+		chooseFile.initFiledGui(result,20,"#filed_gui");
 	});
+}
+
+/**
+ * 创建地块选择界面
+ * fileds 地块集合
+ * colNum 需要划分的列数量
+ */
+chooseFile.initFiledGui = function(fileds,colNum,containerId){
+	var tArray = new Array();	//map映射图
+	var tArrayData = new Array(); //map映射数据
+
+	var seatsSet = new Object();
+	//计算需要多少行
+	var h = Math.ceil(fileds.length/colNum);	//向上取整
+	for(var i = 0;i<h;i++){
+		var hArrayStr ="";
+		var hArray = new Array();
+		for(var j = 0;j<colNum;j++){
+			var index = i*colNum+j;
+			if(index<fileds.length){
+				hArray.push(fileds[index]);	//映射数据添加
+				//判断当前地块状态
+				if(fileds[index].state=='0'){
+					hArrayStr= hArrayStr+'a';
+				}
+				if(fileds[index].state=='1'){
+					hArrayStr= hArrayStr+'b';
+				}
+				if(fileds[index].state=='2'){
+					hArrayStr= hArrayStr+'c';
+				}
+			}
+			else{
+				hArrayStr= hArrayStr+'_';
+			}
+		}
+		tArrayData.push(hArray);
+		tArray.push(hArrayStr);
+	}
+	var sc = $(containerId).seatCharts({
+		map: tArray,
+		naming  : {
+			top    : false,
+			left   : false,
+			getId  : function(character, row, column) {
+				return row + '_' + column;
+//				return {'row':row,'column':column};
+			},
+			getLabel : function (character, row, column) {
+				return (row-1)*colNum+column;
+			}
+			
+		},
+		seats: {
+			a: {
+				classes : 'first-class'
+			},
+			b: {
+				classes : 'second-class'
+			},
+			c: {
+				classes : 'three-class'
+			},
+			
+		},
+		/*legend : {
+			//node : $('#choose_filed_gui_legend'),
+		    items : [
+				[ 'a', 'available', '可选'],
+				[ 'b', 'unavailable','在租'],
+				[ 'c', 'unavailable','锁定']
+		    ]					
+		},*/
+		click: function () {
+			var indexStr = this.settings.id;
+			var indexArray = indexStr.split('_');
+			var selectItem = tArrayData[parseInt(indexArray[0]-1)][parseInt(indexArray[1]-1)];
+			var result = "";
+			if (this.status() == 'available') {
+				chooseFile.showFiledInfo(selectItem);	//显示当前选中内容的状态
+				result = 'selected';
+//				alert(this.settings.id);
+				//请求后台 设置状态
+				common.ajax('/merchant/lockState','GET',{"state":"1","filedId":selectItem.id},function(aresult){
+					//设置返回结果
+					if(aresult){	//锁定成功
+						result = "selected";
+						tArrayData[parseInt(indexArray[0]-1)][parseInt(indexArray[1]-1)].state = '1';
+					}
+					else{
+						result = "available";
+					}
+					
+				},null,false);
+				//选择可选 地块 后台请求锁定成功后 返回 
+			} else if (this.status() == 'selected') {
+				//后台释放锁定内容
+				result = 'available';
+				var selectItem = tArrayData[parseInt(indexArray[0]-1)][parseInt(indexArray[1]-1)];
+				//请求后台 设置状态
+				common.ajax('/merchant/lockState','GET',{"state":"0","filedId":selectItem.id},function(aresult){
+					//设置返回结果
+					if(aresult){	//解开锁成功
+						result = "available";
+						tArrayData[parseInt(indexArray[0]-1)][parseInt(indexArray[1]-1)].state = '0';
+					}
+					else{
+						result = "selected";
+					}
+					
+				},null,false);
+				chooseFile.showFiledInfo(selectItem);	//显示当前选中内容的状态
+			} else if (this.status() == 'unavailable') {
+				chooseFile.showFiledInfo(selectItem);	//显示当前选中内容的状态
+				result =  'unavailable';
+			} else {
+				return this.style();
+			}
+			return result;
+		}
+	});
+	sc.find('b.available').status('unavailable');
+	sc.find('c.available').status('unavailable');
+}
+
+
+/**
+ * 点击显示选中的地块信息
+ */
+chooseFile.showFiledInfo = function(obj){
+	$("td[name='chooseField_showFieldInfo']").empty();
+	var linkD = $("<a>点击查看</a>");
+	linkD.attr('href',obj.monitorurl);
+	$("td[name='chooseField_showFieldInfo']")[0].append(obj.id);
+	$("td[name='chooseField_showFieldInfo']")[1].append(linkD[0]);
+	$("td[name='chooseField_showFieldInfo']")[2].append(obj.size);
+	$("td[name='chooseField_showFieldInfo']")[3].append(obj.state);
+	
 }

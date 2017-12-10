@@ -4021,28 +4021,43 @@ h4.border {
 }
 
 /*
-	span 颜色
+	地块颜色
 */
-.lockSpan{
-	background-color:#FFD306;
-	width:20px;
-	height:20px;
-}
-    
-.freeSpan{
-	background-color:#00BB00;
-	width:20px;
-	height:20px;
+div.seatCharts-seat.available.first-class {
+	background-color: #00ff00;
 }
 
-.useSpan{
-	background-color:#808040;
-	width:20px;
-	height:20px;
+div.seatCharts-seat.selected.first-class {
+	background-color: #006600;
 }
-.chooseSpan{
-	background-color:#F75000;
-	width:20px;
-	height:20px;
+
+div.seatCharts-seat.unavailable.second-class {
+	background-color: #9ac538;
+}
+
+div.seatCharts-seat.unavailable.three-class {
+	background-color: #e914c9;
+}
+
+
+/*
+ 地块选择样式
+*/
+div.seatCharts-seat.available {
+	background-color: #B9DEA0;
+
+}
+div.seatCharts-seat.available.first-class {
+/* 	background: url(vip.png); */
+	background-color: #3a78c3;
+}
+div.seatCharts-seat.focused {
+	background-color: #76B474;
+}
+div.seatCharts-seat.selected {
+	background-color: #E6CAC4;
+}
+div.seatCharts-seat.unavailable {
+	background-color: #472B34;
 }
 

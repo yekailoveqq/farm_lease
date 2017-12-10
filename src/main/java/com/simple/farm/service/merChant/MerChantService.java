@@ -24,4 +24,12 @@ public interface MerChantService {
 	 */
 	List<FiledInfo> getFiledsByMerChantId(int merChantId);
 	
+	/**
+	 * 地块锁定状态的切换
+	 * @param state
+	 * @param filedId
+	 * @return
+	 */
+	boolean changeFiledLockState(String state,int filedId);
+	
 }
