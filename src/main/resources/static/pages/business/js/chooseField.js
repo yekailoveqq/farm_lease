@@ -118,7 +118,6 @@ chooseFile.clickRow = function(row){
  *返回上一步
  */
 chooseFile.pre = function(step){
-	
 	switch (step) {
 	//返回商家选择
 	case 1:
@@ -129,6 +128,12 @@ chooseFile.pre = function(step){
 			var obj = new Object();
 			obj.ids = chooseFile.sc.find("a.selected").seatIds;
 			common.ajax("/merchant/removeLockState","POST",JSON.stringify(obj.ids),function(result){
+				//修改状态
+				/*$.each(obj.ids, function(i, v){
+					chooseFile.sc.status(v, 'available');
+					});*/
+				chooseFile.sc.find('a.selected').status('available')
+				
 				$(".chooseFiled_ystep").prevStep();	//回撤步骤
 				//显示tab页面
 				chooseFile.showTab(showTabId);
