@@ -118,24 +118,41 @@ chooseFile.clickRow = function(row){
  *返回上一步
  */
 chooseFile.pre = function(step){
-	$('a[role="tab"]').unbind();
+	
 	switch (step) {
 	//返回商家选择
 	case 1:
+		var showTabId = 'a[href="#chooseFiled_shopper"]';
 		//存在锁定地块 先清理状态
 		if(chooseFile.sc.find("a.selected").length>0){
 			//当前选中的ids
 			var obj = new Object();
 			obj.ids = chooseFile.sc.find("a.selected").seatIds;
 			common.ajax("/merchant/removeLockState","POST",JSON.stringify(obj.ids),function(result){
-				// $(".chooseFiled_ystep").pre(1);
+				$(".chooseFiled_ystep").prevStep();	//回撤步骤
+				//显示tab页面
+				chooseFile.showTab(showTabId);
 			});
-			
+		}
+		else{
+			$(".chooseFiled_ystep").prevStep();
+			chooseFile.showTab(showTabId);
 		}
 		break;
 	}
+	
+	
+}
+
+/**
+ * 显示tab页面
+ */
+chooseFile.showTab = function(id){
+	$('a[role="tab"]').unbind();
+	$(id).tab('show');
 	chooseFile.forbidTab();
 }
+
 
 
 
@@ -185,7 +202,7 @@ chooseFile.next = function(step) {
 chooseFile.initFieldBlock = function(){
 	//后台查询当前商家的地块信息
 	common.ajax('/merchant/getFileds','GET','merChantId='+chooseFile.chooseChantId,function(result){
-		console.log(result);
+//		console.log(result);
 		//根据返回结果创建map
 		chooseFile.initFiledGui(result,20,"#filed_gui");
 	});
