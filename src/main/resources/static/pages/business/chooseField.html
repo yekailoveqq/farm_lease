@@ -106,24 +106,10 @@
 								<div role="tabpanel" class="tab-pane fade"
 									id="chooseFiled_field">
 									<h4 class="text-center">点击选择可以用的地块</h4>
-									<!-- 									<div class="row">
-										<div class="col-md-3">
-											<span class="freeSpan btn"></span><label>可用地块</label>
-										</div>
-										<div class="col-md-3">
-											<span class="lockSpan btn"></span><label>选中未支付的地块</label>
-										</div>
-										<div class="col-md-3">
-											<span class="useSpan btn"></span><label>目前种植的地块</label>
-										</div>
-										<div class="col-md-3">
-											<span class="chooseSpan btn"></span><label>当前选择的地块</label>
-										</div>
-									</div> -->
 									<!-- 地块界面 -->
 									<div class="container-fluid">
 										<div class="row">
-											<div class="col-md-7 col-md-offset-1 ">
+											<div class="col-md-7 col-md-offset-1">
 												<div class="from-group">
 													<div class="row" id="filed_gui"></div>
 												</div>
@@ -176,7 +162,16 @@
 											</div>
 										</div>
 									</div>
-
+									<div class="container-fluid">
+										<div class="row">
+											<div class="col-md-5 col-md-offset-1">
+												<button class="btn btn-success" onclick="chooseFile.pre(1)">上一步</button>
+											</div>
+											<div class="col-md-6">
+												<button class="btn btn-success" onclick="chooseFile.next(2)">下一步</button>
+											</div>
+										</div>
+									</div>	
 								</div>
 								<div role="tabpanel" class="tab-pane fade" id="chooseFiled_term">...</div>
 								<div role="tabpanel" class="tab-pane fade"

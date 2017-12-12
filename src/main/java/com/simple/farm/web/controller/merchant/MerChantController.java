@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.github.pagehelper.Page;
@@ -11,6 +12,7 @@ import com.simple.farm.bean.common.PageBean;
 import com.simple.farm.bean.merChant.FiledInfo;
 import com.simple.farm.bean.merChant.MerchantInfo;
 import com.simple.farm.service.merChant.MerChantService;
+import com.simple.farm.web.common.SpBindAnotation;
 
 /**
  * 
@@ -54,5 +56,15 @@ public class MerChantController {
 		return merChantService.changeFiledLockState(state,filedId);
 	}
 	
+	
+	/**
+	 * 回撤锁定状态
+	 * 
+	 * @param merChantVo
+	 */
+	@RequestMapping(value = "/removeLockState",method=RequestMethod.POST)
+	public int removeLockState(@SpBindAnotation List<Integer> ids){
+		return merChantService.removeLockState(ids);
+	}
 	
 }

@@ -125,4 +125,18 @@
       merchant_field_size = #{merchantFieldSize,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update> -->
+  
+  
+  <update id="removeLockState">
+  	update filed_info set state = '0'
+  	<if test="ids!=null">
+	  	  <where>
+	  		id in
+	  		<foreach collection="ids" item="id" open="(" close=")" separator=",">  
+		   		#{id}
+		  	</foreach>  
+	  	</where>
+  	</if>
+  </update>
+  
 </mapper>

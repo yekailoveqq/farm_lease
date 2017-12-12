@@ -32,4 +32,11 @@ public interface MerChantService {
 	 */
 	boolean changeFiledLockState(String state,int filedId);
 	
+	/**
+	 * 根据id 修改 锁定的状态 回撤为可选
+	 * @param ids
+	 * @return
+	 */
+	int removeLockState(List<Integer> ids);
+	
 }

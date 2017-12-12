@@ -49,6 +49,11 @@ public class MerChantServiceImpl implements MerChantService {
 		int r = filedInfoMapper.lockState(filedInfo);
 		return r==1?true:false;
 	}
+
+	@Override
+	public int removeLockState(List<Integer> ids) {
+		return merChantInfoMapper.removeLockState(ids);
+	}
 	
 	
 	

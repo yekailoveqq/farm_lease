@@ -5,6 +5,9 @@ var chooseFile = new Object();
 
 chooseFile.chooseChantId = '';	//记录当前选中的商家
 
+chooseFile.chooseFiledList = new Array();
+
+chooseFile.sc = new Object();
 
 /**
  * 弹出选择界面
@@ -112,6 +115,31 @@ chooseFile.clickRow = function(row){
 }
 
 /**
+ *返回上一步
+ */
+chooseFile.pre = function(step){
+	$('a[role="tab"]').unbind();
+	switch (step) {
+	//返回商家选择
+	case 1:
+		//存在锁定地块 先清理状态
+		if(chooseFile.sc.find("a.selected").length>0){
+			//当前选中的ids
+			var obj = new Object();
+			obj.ids = chooseFile.sc.find("a.selected").seatIds;
+			common.ajax("/merchant/removeLockState","POST",JSON.stringify(obj.ids),function(result){
+				// $(".chooseFiled_ystep").pre(1);
+			});
+			
+		}
+		break;
+	}
+	chooseFile.forbidTab();
+}
+
+
+
+/**
  * 下一步操作内容
  */
 chooseFile.next = function(step) {
@@ -119,7 +147,7 @@ chooseFile.next = function(step) {
 	switch (step) {
 	case 1:
 		if(chooseFile.chooseChantId==''){
-			alert('请选择商家后进行下一步操作！')
+			alert('请选择商家后进行下一步操作！');
 		}
 		else{
 			//步骤跳转
@@ -130,6 +158,18 @@ chooseFile.next = function(step) {
 			//开始设置可选地块界面
 			chooseFile.initFieldBlock();
 			
+		}
+		break;
+		
+	case 2:
+		//判断是否有选择
+		if(chooseFile.sc.find("a.selected").length<=0){
+			alert('请选择地块！')
+		}
+		//有选择 进入下一步
+		else{
+			$(".chooseFiled_ystep").nextStep();
+			$('a[href="#chooseFiled_term"]').tab('show');
 		}
 		break;
 	}
@@ -188,13 +228,16 @@ chooseFile.initFiledGui = function(fileds,colNum,containerId){
 		tArrayData.push(hArray);
 		tArray.push(hArrayStr);
 	}
-	var sc = $(containerId).seatCharts({
+	chooseFile.sc = $(containerId).seatCharts({
 		map: tArray,
 		naming  : {
 			top    : false,
 			left   : false,
 			getId  : function(character, row, column) {
-				return row + '_' + column;
+				//return row + '_' + column;
+				var selectItem = tArrayData[parseInt(row-1)][parseInt(column-1)];
+				return selectItem.id;
+				//return selectItem;
 //				return {'row':row,'column':column};
 			},
 			getLabel : function (character, row, column) {
@@ -223,9 +266,9 @@ chooseFile.initFiledGui = function(fileds,colNum,containerId){
 		    ]					
 		},*/
 		click: function () {
-			var indexStr = this.settings.id;
-			var indexArray = indexStr.split('_');
-			var selectItem = tArrayData[parseInt(indexArray[0]-1)][parseInt(indexArray[1]-1)];
+			//var indexStr = this.settings.id;
+			//var indexArray = indexStr.split('_');
+			var selectItem = chooseFile.getItemById(this.settings.id,fileds);
 			var result = "";
 			if (this.status() == 'available') {
 				chooseFile.showFiledInfo(selectItem);	//显示当前选中内容的状态
@@ -236,7 +279,7 @@ chooseFile.initFiledGui = function(fileds,colNum,containerId){
 					//设置返回结果
 					if(aresult){	//锁定成功
 						result = "selected";
-						tArrayData[parseInt(indexArray[0]-1)][parseInt(indexArray[1]-1)].state = '1';
+						selectItem.state = '1';
 					}
 					else{
 						result = "available";
@@ -247,13 +290,13 @@ chooseFile.initFiledGui = function(fileds,colNum,containerId){
 			} else if (this.status() == 'selected') {
 				//后台释放锁定内容
 				result = 'available';
-				var selectItem = tArrayData[parseInt(indexArray[0]-1)][parseInt(indexArray[1]-1)];
+				//var selectItem =  this.settings.id;
 				//请求后台 设置状态
 				common.ajax('/merchant/lockState','GET',{"state":"0","filedId":selectItem.id},function(aresult){
 					//设置返回结果
 					if(aresult){	//解开锁成功
 						result = "available";
-						tArrayData[parseInt(indexArray[0]-1)][parseInt(indexArray[1]-1)].state = '0';
+						selectItem.state = '0';
 					}
 					else{
 						result = "selected";
@@ -270,9 +313,30 @@ chooseFile.initFiledGui = function(fileds,colNum,containerId){
 			return result;
 		}
 	});
-	sc.find('b.available').status('unavailable');
-	sc.find('c.available').status('unavailable');
+	chooseFile.sc.find('b.available').status('unavailable');
+	chooseFile.sc.find('c.available').status('unavailable');
 }
+
+/**
+ * 根据id 获取具体的选中元素
+ */
+chooseFile.getItemById = function(id,items){
+	
+	for(var i = 0;i<items.length;i++){
+		if(items[i].id == id){
+			return items[i];
+		}
+	}
+	
+/*	
+	$.each(items, function(k, v){
+		  if(v.id==id){
+			  return v;
+		  }
+		});*/
+	
+}
+
 
 
 /**
@@ -286,5 +350,6 @@ chooseFile.showFiledInfo = function(obj){
 	$("td[name='chooseField_showFieldInfo']")[1].append(linkD[0]);
 	$("td[name='chooseField_showFieldInfo']")[2].append(obj.size);
 	$("td[name='chooseField_showFieldInfo']")[3].append(obj.state);
-	
 }
+
+

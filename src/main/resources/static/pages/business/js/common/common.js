@@ -60,7 +60,9 @@ common.ajax = function(url,type,data,successFunction,errorFunction,isasync){
 	$.ajax({
 		   type: type,
 		   url: url,
+		   contentType:"application/json",
 		   data: data,
+		   traditional: true,
 		   async:isasync==null?true:isasync,
 		   success:successFunction,
 		   error:errorFunction==null?function(e){
