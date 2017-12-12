@@ -39,4 +39,11 @@ public interface MerChantService {
 	 */
 	int removeLockState(List<Integer> ids);
 	
+	/**
+	 * 根据地块id集合获取地块详细信息
+	 * @param ids
+	 * @return
+	 */
+	List<FiledInfo> getFiledInfos(List<Integer> ids);
+	
 }

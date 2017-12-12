@@ -21,6 +21,23 @@ common.loadHtmlToBody = function(id,path) {
 }
 
 
+
+/**
+ * 根据自定义设置的参数 初始化表格
+ */
+common.initTableWithOption = function(tableId,opration){
+	$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['zh-CN']);
+	var initOperation = new Object();
+	initOperation.pagination = true;
+	initOperation.search = false;
+	initOperation.contentType = 'application/json';
+	initOperation.pageSize = 5;
+	initOperation.pageNumber = 1;
+	initOperation.pageList = [5,10, 20, 50, 100, 200, 500];
+	$.extend(opration, initOperation);//合并自定义属性 和 默认属性
+	$(tableId).bootstrapTable(opration);
+}
+
 /**
  * 初始化表格
  * tableId 表格id

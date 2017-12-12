@@ -165,7 +165,6 @@ chooseFile.showTab = function(id){
  * 下一步操作内容
  */
 chooseFile.next = function(step) {
-	$('a[role="tab"]').unbind();
 	switch (step) {
 	case 1:
 		if(chooseFile.chooseChantId==''){
@@ -175,7 +174,7 @@ chooseFile.next = function(step) {
 			//步骤跳转
 			$(".chooseFiled_ystep").nextStep();
 			//tab跳转下一个面板 地块选择
-			$('a[href="#chooseFiled_field"]').tab('show');
+			chooseFile.showTab('a[href="#chooseFiled_field"]');
 			
 			//开始设置可选地块界面
 			chooseFile.initFieldBlock();
@@ -191,14 +190,35 @@ chooseFile.next = function(step) {
 		//有选择 进入下一步
 		else{
 			$(".chooseFiled_ystep").nextStep();
-			$('a[href="#chooseFiled_term"]').tab('show');
+			chooseFile.showTab('a[href="#chooseFiled_term"]');
+			//初始化选择地块和租期选择
+			chooseFile.initTermGui();
 		}
 		break;
 	}
-	chooseFile.forbidTab();
 }
 
 
+/**
+ * 出屎忽租期选择界面
+ */
+chooseFile.initTermGui = function(){
+	var obj = new Object();
+	obj.url = '/merchant/showTermData';
+	obj.method = 'post';
+	
+	var cols = new Array();
+	cols.push({field:'id',title:'地块编号'});
+	cols.push({field:'size',title:'地块大小'});
+	cols.push({field:'term',title:'租期'});
+
+	obj.columns = cols;
+	obj.pagination = false;
+	obj.queryParams = function(params) {
+		return chooseFile.sc.find("a.selected").seatIds;
+	},
+	common.initTableWithOption("#chooseFiled_term_table",obj)
+}
 
 
 /**

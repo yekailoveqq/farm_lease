@@ -1,6 +1,9 @@
 package com.simple.farm.web.controller.merchant;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -65,6 +68,28 @@ public class MerChantController {
 	@RequestMapping(value = "/removeLockState",method=RequestMethod.POST)
 	public int removeLockState(@SpBindAnotation List<Integer> ids){
 		return merChantService.removeLockState(ids);
+	}
+	
+	
+	/**
+	 * 返回租期选择界面数据
+	 * @param ids
+	 * @return
+	 */
+	@RequestMapping(value = "/showTermData",method=RequestMethod.POST)
+	public List<Map<String , Object>> getFileTermGuiDate(@SpBindAnotation List<Integer> ids){
+		List<FiledInfo> fileds = merChantService.getFiledInfos(ids);
+		List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
+		if(fileds!=null&&fileds.size()>0){
+			for(FiledInfo filed:fileds){
+				Map<String, Object> o = new HashMap<String, Object>();
+				o.put("id", filed.getId());	//编号
+				o.put("size", filed.getSize()); //大小
+				o.put("term", 1);	//租期 默认一个月
+				result.add(o);
+			}
+		}
+		return result;
 	}
 	
 }

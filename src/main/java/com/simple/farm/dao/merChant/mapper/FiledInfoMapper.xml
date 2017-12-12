@@ -67,5 +67,14 @@
   </update>
   
   
+  <select id="getFiledInfos" resultType="com.simple.farm.bean.merChant.FiledInfo">
+  	select * from filed_info
+  	<where>
+  		id in
+  		<foreach collection="ids" item="id" open="(" close=")" separator=",">
+  			#{id}
+  		</foreach>
+  	</where>
+  </select>
   
 </mapper>
