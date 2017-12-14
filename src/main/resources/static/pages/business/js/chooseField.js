@@ -210,16 +210,31 @@ chooseFile.initTermGui = function(){
 	var cols = new Array();
 	cols.push({field:'id',title:'地块编号'});
 	cols.push({field:'size',title:'地块大小'});
-	cols.push({field:'term',title:'租期'});
-
+	cols.push({field:'term',title:'租期',formatter:function(value,row,index){
+		return "<input type='number' min='1' value="+value+"></input>";
+	}});
+	cols.push({field:'del',title:'操作',formatter:function(value,row,index){
+		return "<a href='#' onclick='chooseFile.delRow("+row.id+")'>删除</a>";
+	}});
 	obj.columns = cols;
 	obj.pagination = false;
 	obj.queryParams = function(params) {
 		return chooseFile.sc.find("a.selected").seatIds;
 	},
-	common.initTableWithOption("#chooseFiled_term_table",obj)
+	common.initTableWithOption("#chooseFiled_term_table",obj);
 }
 
+
+/**
+ * 删除行
+ */
+chooseFile.delRow = function(idValue){
+	var o = new Object();
+	o.field = "id";
+	o.values = [idValue];
+	$("#chooseFiled_term_table").bootstrapTable('remove', o);
+}
+	
 
 /**
  * 初始化地块

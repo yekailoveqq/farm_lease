@@ -86,6 +86,7 @@ public class MerChantController {
 				o.put("id", filed.getId());	//编号
 				o.put("size", filed.getSize()); //大小
 				o.put("term", 1);	//租期 默认一个月
+				o.put("del", "删除");
 				result.add(o);
 			}
 		}
