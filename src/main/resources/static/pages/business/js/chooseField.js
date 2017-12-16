@@ -206,13 +206,30 @@ chooseFile.initTermGui = function(){
 	var obj = new Object();
 	obj.url = '/merchant/showTermData';
 	obj.method = 'post';
+	//obj.showFooter = true;
 	
 	var cols = new Array();
-	cols.push({field:'id',title:'地块编号'});
-	cols.push({field:'size',title:'地块大小'});
-	cols.push({field:'term',title:'租期',formatter:function(value,row,index){
-		return "<input type='number' min='1' value="+value+"></input>";
+	cols.push({field:'id',title:'地块编号',footerFormatter:function(datas){
+		return "总计";
 	}});
+	cols.push({field:'size',title:'地块大小',footerFormatter:function(datas){
+		var allSize = 0;
+		$.each(datas,function(k,v){
+			allSize = allSize+v.size;
+		});
+		return allSize;
+	}});
+	/*cols.push({field:'term',title:'租期',formatter:function(value,row,index){
+		return "<input type='number' min='1' value="+value+" change=chooseFile.caculateMoney()></input>";
+	}});*/
+	
+	cols.push({field:'term',title:'租期',editable:{type:'number',defaultValue:1,mode:"inline",validate:function(value){
+		if(value<0){
+			alert("租期不能小于1个月");
+			value = 1;
+		}
+		
+	}}});
 	cols.push({field:'del',title:'操作',formatter:function(value,row,index){
 		return "<a href='#' onclick='chooseFile.delRow("+row.id+")'>删除</a>";
 	}});
@@ -222,7 +239,26 @@ chooseFile.initTermGui = function(){
 		return chooseFile.sc.find("a.selected").seatIds;
 	},
 	common.initTableWithOption("#chooseFiled_term_table",obj);
+	$("#chooseFiled_term_table").on("editable-save.bs.table",function(field, row, oldValue, $el) {
+		chooseFile.caculateMoney();
+//        return false;
+    })
 }
+
+/**
+ * 计算总金额
+ */
+chooseFile.caculateMoney = function(){
+	var allTerm = 0;
+	var allDatas = $("#chooseFiled_term_table").bootstrapTable('getData');
+	$.each(allDatas,function(k,v){
+		allTerm = allTerm+v.term;
+	});
+	var showText = "当前选中"+allDatas.length+"块地块,共租用"+allTerm+"个月,需付款100元";
+	alert(showText);
+}
+
+
 
 
 /**
@@ -233,6 +269,7 @@ chooseFile.delRow = function(idValue){
 	o.field = "id";
 	o.values = [idValue];
 	$("#chooseFiled_term_table").bootstrapTable('remove', o);
+	chooseFile.caculateMoney();
 }
 	
 
