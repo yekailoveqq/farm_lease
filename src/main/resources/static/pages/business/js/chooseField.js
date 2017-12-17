@@ -144,6 +144,19 @@ chooseFile.pre = function(step){
 			chooseFile.showTab(showTabId);
 		}
 		break;
+		
+	case 2:
+		var showTabId = 'a[href="#chooseFiled_field"]';
+		$(".chooseFiled_ystep").prevStep();
+		chooseFile.showTab(showTabId);
+		break;
+		
+		
+	case 3:
+		var showTabId = 'a[href="#chooseFiled_term"]';
+		$(".chooseFiled_ystep").prevStep();
+		chooseFile.showTab(showTabId);
+		break;
 	}
 	
 	
@@ -179,6 +192,7 @@ chooseFile.next = function(step) {
 			//开始设置可选地块界面
 			chooseFile.initFieldBlock();
 			
+			
 		}
 		break;
 		
@@ -190,19 +204,29 @@ chooseFile.next = function(step) {
 		//有选择 进入下一步
 		else{
 			$(".chooseFiled_ystep").nextStep();
-			chooseFile.showTab('a[href="#chooseFiled_term"]');
 			//初始化选择地块和租期选择
 			chooseFile.initTermGui();
+			chooseFile.showTab('a[href="#chooseFiled_term"]');
+			$('#chooseFiled_term_table').bootstrapTable('refresh');
+			//chooseFile.caculateMoney();
+
 		}
+		break;
+	
+	case 3:
+		$(".chooseFiled_ystep").nextStep();
+		chooseFile.showTab('a[href="#chooseFiled_finishd"]');
 		break;
 	}
 }
 
 
 /**
- * 出屎忽租期选择界面
+ * 初始化租期选择界面
  */
 chooseFile.initTermGui = function(){
+	//先清空表格内容
+	//$('#chooseFiled_term_table').bootstrapTable('removeAll');
 	var obj = new Object();
 	obj.url = '/merchant/showTermData';
 	obj.method = 'post';
@@ -242,20 +266,26 @@ chooseFile.initTermGui = function(){
 	$("#chooseFiled_term_table").on("editable-save.bs.table",function(field, row, oldValue, $el) {
 		chooseFile.caculateMoney();
 //        return false;
-    })
+    });
+	
+	//
+	$("#chooseFiled_term_table").on("load-success.bs.table",function(data) {
+		chooseFile.caculateMoney();
+//        return false;
+    });
 }
 
 /**
  * 计算总金额
  */
 chooseFile.caculateMoney = function(){
-	var allTerm = 0;
+	var allPrice = 0;
 	var allDatas = $("#chooseFiled_term_table").bootstrapTable('getData');
 	$.each(allDatas,function(k,v){
-		allTerm = allTerm+v.term;
+		allPrice = allPrice+v.term*v.size*3;
 	});
-	var showText = "当前选中"+allDatas.length+"块地块,共租用"+allTerm+"个月,需付款100元";
-	alert(showText);
+	$("p[name='chooseFile_showPrice']").empty();
+	$("p[name='chooseFile_showPrice']").append("总金额为:"+allPrice+"元");
 }
 
 
@@ -268,7 +298,25 @@ chooseFile.delRow = function(idValue){
 	var o = new Object();
 	o.field = "id";
 	o.values = [idValue];
-	$("#chooseFiled_term_table").bootstrapTable('remove', o);
+	if($("#chooseFiled_term_table").bootstrapTable('getData').length<=1){
+		alert("至少选择一个地块!");
+	}
+	else{
+		$("#chooseFiled_term_table").bootstrapTable('remove', o);
+		//同时清除锁定状态
+		common.ajax("/merchant/removeLockState","POST",JSON.stringify(o.values),function(result){
+			//修改状态
+			/*$.each(obj.ids, function(i, v){
+				chooseFile.sc.status(v, 'available');
+				});*/
+			
+			$.each(chooseFile.sc.find('a.selected').seats,function(k,v){
+				if(v.settings.id==idValue){
+					v.status('available');
+				}
+			});			
+		});	
+	}
 	chooseFile.caculateMoney();
 }
 	
