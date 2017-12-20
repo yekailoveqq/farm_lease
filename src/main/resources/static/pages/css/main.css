@@ -4061,3 +4061,20 @@ div.seatCharts-seat.unavailable {
 	background-color: #472B34;
 }
 
+
+/*
+ÑéÖ¤Âë
+*/
+.code {
+/* background-image: url(code.jpg);*/
+font-family: Arial;
+font-style: italic;
+color: Red;
+border: 0;
+padding: 2px 3px;
+letter-spacing: 3px;
+font-weight: bolder;
+}
+.unchanged {
+border: 0;
+}

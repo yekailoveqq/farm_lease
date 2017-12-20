@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.simple.farm.dao.userInfo.ValiateCodeMapper">
+  
+  
+  <select id="getLastValiateCode" parameterType="com.simple.farm.bean.userInfo.ValiateCode" resultType="com.simple.farm.bean.userInfo.ValiateCode">
+  	select * from valiate_code
+	<where>
+		user_phone = #{userPhone} and code = #{code}
+	</where>
+	order by create_time limit 1
+  </select>
+  
+</mapper>

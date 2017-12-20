@@ -214,6 +214,10 @@ chooseFile.next = function(step) {
 		break;
 	
 	case 3:
+		
+		
+		
+		
 		$(".chooseFiled_ystep").nextStep();
 		chooseFile.showTab('a[href="#chooseFiled_finishd"]');
 		break;
