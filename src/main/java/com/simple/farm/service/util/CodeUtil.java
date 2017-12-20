@@ -1,5 +1,9 @@
 package com.simple.farm.service.util;
 
+import java.util.Date;
+
+import com.simple.farm.bean.userInfo.ValiateCode;
+
 public class CodeUtil {
 
 	/**
@@ -32,6 +36,21 @@ public class CodeUtil {
 			}
 		} while (bDone);
 		return retStr;
+	}
+	
+	
+	/**
+	 * 判断验证码是否在规定有效时间内
+	 * @param code
+	 * @param time
+	 * @return
+	 */
+	public static boolean inRightTime(ValiateCode code,int time){
+		long mind = new Date().getTime() - code.getCreateTime().getTime();
+		if(mind/(1000*60)<=time){
+			return true;
+		}
+		return false;
 	}
 
 }

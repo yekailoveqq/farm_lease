@@ -47,7 +47,24 @@ login.sendMessage = function(){
 				alert("验证码发送成功！")
 			}
 		});
-		
 	}
+	else{
+		alert("输入的验证码有误");
+	}
+}
+
+
+
+/**
+ * 用户登录验证
+ */
+login.userLogin = function(){
+	var sendData = new Object();
+	sendData.userPhone = $("#login_phone").val();
+	sendData.valiateCode = $("#login_phoneCode").val();
+	common.ajax('/user/userLogin','POST',sendData,function(result){
+		alert(result);
+	});
+	
 	
 }

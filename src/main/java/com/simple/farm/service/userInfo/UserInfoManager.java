@@ -17,6 +17,12 @@ public interface UserInfoManager {
 	boolean createValiateCode(String phoneNum);
 	
 	
+	/**
+	 * 用户登录
+	 * @param userPhone
+	 * @param valiateCode
+	 * @return
+	 */
 	Map<String, Object> userLogin(String userPhone,String valiateCode);
 
 }
