@@ -72,7 +72,7 @@ public class UserInfoManagerImpl implements UserInfoManager{
 		userInfo = userInfoManager.selectOne(userInfo);
 		int resRow = 0;
 		//用户不存在 直接插入用户
-		if(userInfo==null){
+		if(userInfo==null&&userInfo.getUserPhone()!=null){
 			userInfo = new UserInfo();
 			userInfo.setUserPhone(userPhone);
 			userInfo.setUserType("1");

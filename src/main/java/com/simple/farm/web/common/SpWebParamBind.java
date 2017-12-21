@@ -21,9 +21,15 @@ public class SpWebParamBind implements HandlerMethodArgumentResolver{
             ModelAndViewContainer mavContainer,
             NativeWebRequest nativeWebRequest,
             WebDataBinderFactory binderFactory) throws Exception {
+//		parameter.getAnnotatedElement()
 		String typeName = parameter.getGenericParameterType().getTypeName();
 		ServletInputStream inputStream = nativeWebRequest.getNativeRequest(HttpServletRequest.class).getInputStream();  
 		String jsonObj = IOUtils.toString(inputStream);  
+		/*if(parameter.getParameterAnnotation(SpBindValue.class)!=null){
+			SpBindValue spValue = parameter.getParameterAnnotation(SpBindValue.class);
+			return JSONObject.parseObject(jsonObj).get(spValue.value());
+		}*/
+
 		//list类型
 		if(typeName.contains("List")){
 			return JSONObject.parseObject(jsonObj, List.class);
@@ -34,7 +40,7 @@ public class SpWebParamBind implements HandlerMethodArgumentResolver{
 
 	@Override
 	public boolean supportsParameter(MethodParameter method) {
-		if(method.getParameterAnnotation(SpBindAnotation.class)!=null){
+		if(method.getParameterAnnotation(SpBindAnotation.class)!=null||method.getParameterAnnotation(SpBindValue.class)!=null){
 			return true;
 		}
 		return false;

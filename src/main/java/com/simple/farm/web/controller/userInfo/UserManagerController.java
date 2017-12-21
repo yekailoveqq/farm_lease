@@ -2,16 +2,17 @@ package com.simple.farm.web.controller.userInfo;
 
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.util.WebUtils;
 
 import com.simple.farm.service.userInfo.UserInfoManager;
+import com.simple.farm.web.common.SpBindAnotation;
+import com.simple.farm.web.common.SpBindValue;
+import com.simple.farm.web.controller.vo.userInfo.UserLoginVo;
 
 /**
  * 用户管理controller
@@ -41,13 +42,13 @@ public class UserManagerController {
 	 * @return
 	 */
 	@RequestMapping(value = "/userLogin",method = RequestMethod.POST)
-	public Map<String, Object> userLogin(String userPhone,String valiateCode,HttpServletRequest request){
-		Map<String, Object> result = userInfoManager.userLogin(userPhone, valiateCode);
+	public Map<String, Object> userLogin(@ModelAttribute UserLoginVo userLoginVo){
+		Map<String, Object> result = userInfoManager.userLogin(userLoginVo.getUserPhone(), userLoginVo.getValiateCode());
 		//登录成功
-		if(StringUtils.equals("success", (String)result.get("state"))){
+	/*	if(StringUtils.equals("success", (String)result.get("state"))){
 			WebUtils.setSessionAttribute(request, "NOW_USER_PHONE", userPhone);
 		}
-		System.out.println(WebUtils.getSessionAttribute(request, "NOW_USER_PHONE"));
+		System.out.println(WebUtils.getSessionAttribute(request, "NOW_USER_PHONE"));*/
 		return result;
 	}
 	
