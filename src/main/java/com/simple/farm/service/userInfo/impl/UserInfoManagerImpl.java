@@ -40,8 +40,9 @@ public class UserInfoManagerImpl implements UserInfoManager{
 		ValiateCode code = new ValiateCode();
 		code.setCode(valiateCode);
 		code.setUserPhone(userPhone);
+		code = valiateCodeMapper.selectOne(code);
 		//短信验证码存在
-		if(code!=null){
+		if(code!=null&&code.getUserPhone()!=null&&code.getCode()!=null){
 			if(CodeUtil.inRightTime(code, 15)){	//验证码在15分钟内有效
 				//用户登录操作
 				result = dealUserLogin(userPhone);
@@ -72,7 +73,7 @@ public class UserInfoManagerImpl implements UserInfoManager{
 		userInfo = userInfoManager.selectOne(userInfo);
 		int resRow = 0;
 		//用户不存在 直接插入用户
-		if(userInfo==null&&userInfo.getUserPhone()!=null){
+		if(userInfo==null||userInfo.getUserPhone()==null){
 			userInfo = new UserInfo();
 			userInfo.setUserPhone(userPhone);
 			userInfo.setUserType("1");
@@ -83,7 +84,7 @@ public class UserInfoManagerImpl implements UserInfoManager{
 		//用户存在 更新用户登录日期
 		else{
 			userInfo.setLoginTime(new Date());
-			resRow = userInfoManager.updateByPrimaryKeySelective(userInfo);
+			resRow = userInfoManager.updateByPrimaryKey(userInfo);
 		}
 		if(resRow==1){
 			res.put("state", "success");

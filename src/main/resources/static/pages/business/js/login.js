@@ -64,7 +64,7 @@ login.userLogin = function(){
 	sendData.valiateCode = $("#login_phoneCode").val();
 	common.ajax('/user/userLogin','POST',sendData,function(result){
 		alert(result);
-	});
+	},null,null,"application/x-www-form-urlencoded");
 	
 	
 }

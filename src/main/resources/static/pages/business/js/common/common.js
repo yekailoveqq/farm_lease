@@ -73,13 +73,14 @@ common.initTable = function(tableId,columnsArray,url,queryParamsFunction,clickFu
 /**
  * 封装ajax调用方法
  */
-common.ajax = function(url,type,data,successFunction,errorFunction,isasync){
+common.ajax = function(url,type,data,successFunction,errorFunction,isasync,contentType){
 	$.ajax({
 		   type: type,
 		   url: url,
-		   contentType:"application/json",
+		   //contentType:"application/json",
 		   data: data,
 		   traditional: true,
+		   contentType:contentType==null?"application/json":contentType,
 		   async:isasync==null?true:isasync,
 		   success:successFunction,
 		   error:errorFunction==null?function(e){
