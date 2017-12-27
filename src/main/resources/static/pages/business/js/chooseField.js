@@ -214,10 +214,6 @@ chooseFile.next = function(step) {
 		break;
 	
 	case 3:
-		
-		
-		
-		
 		$(".chooseFiled_ystep").nextStep();
 		chooseFile.showTab('a[href="#chooseFiled_finishd"]');
 		break;
@@ -250,7 +246,7 @@ chooseFile.initTermGui = function(){
 	/*cols.push({field:'term',title:'租期',formatter:function(value,row,index){
 		return "<input type='number' min='1' value="+value+" change=chooseFile.caculateMoney()></input>";
 	}});*/
-	
+	cols.push({field:'price',title:'价格'});
 	cols.push({field:'term',title:'租期',editable:{type:'number',defaultValue:1,mode:"inline",validate:function(value){
 		if(value<0){
 			alert("租期不能小于1个月");
@@ -286,11 +282,28 @@ chooseFile.caculateMoney = function(){
 	var allPrice = 0;
 	var allDatas = $("#chooseFiled_term_table").bootstrapTable('getData');
 	$.each(allDatas,function(k,v){
-		allPrice = allPrice+v.term*v.size*3;
+		allPrice = allPrice+v.term*v.price;
 	});
 	$("p[name='chooseFile_showPrice']").empty();
 	$("p[name='chooseFile_showPrice']").append("总金额为:"+allPrice+"元");
 }
+
+/**
+ * 获取支付提交的信息
+ */
+chooseFile.getPayInfo = function(){
+	var allDatas = $("#chooseFiled_term_table").bootstrapTable('getData');	//当前的记录
+	var details = new Array();
+	$.each(allDatas,function(k,v){
+		var o = new Object();
+		o.id = v.id;
+		o.term = v.term;
+		details.push(o);
+	});
+	return details;
+	
+}
+
 
 
 
@@ -498,4 +511,24 @@ chooseFile.showFiledInfo = function(obj){
 	$("td[name='chooseField_showFieldInfo']")[3].append(obj.state);
 }
 
-
+/**
+ * 完成支付
+ */
+chooseFile.pay = function(){
+	//判断是否登录
+	common.ajax("/user/isLogin","GET",null,function(result){
+		//已经登录
+		if(result){
+			var details = chooseFile.getPayInfo();
+			common.ajax("/merchant/finishedPay","POST",JSON.stringify(details),function(result){
+				
+			});
+		}
+		//未登录
+		else{
+			//打开登录页面
+			login.showModel();
+		}
+	});
+	
+}

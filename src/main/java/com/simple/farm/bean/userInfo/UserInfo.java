@@ -15,7 +15,7 @@ public class UserInfo {
 
     private String userType;
 
-    private Date ceateTime;
+    private Date createTime;
 
     private Date loginTime;
 
@@ -69,12 +69,12 @@ public class UserInfo {
         this.userType = userType == null ? null : userType.trim();
     }
 
-    public Date getCeateTime() {
-        return ceateTime;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setCeateTime(Date ceateTime) {
-        this.ceateTime = ceateTime;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
     public Date getLoginTime() {

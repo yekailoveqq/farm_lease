@@ -1,5 +1,6 @@
 package com.simple.farm.service.userInfo.impl;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.simple.farm.bean.userInfo.UserInfo;
 import com.simple.farm.bean.userInfo.ValiateCode;
+import com.simple.farm.common.extMybatis.UpdateCondition;
 import com.simple.farm.dao.userInfo.UserInfoMapper;
 import com.simple.farm.dao.userInfo.ValiateCodeMapper;
 import com.simple.farm.service.userInfo.UserInfoManager;
@@ -77,14 +79,18 @@ public class UserInfoManagerImpl implements UserInfoManager{
 			userInfo = new UserInfo();
 			userInfo.setUserPhone(userPhone);
 			userInfo.setUserType("1");
-			userInfo.setCeateTime(new Date());
+			userInfo.setCreateTime(new Date());
 			userInfo.setLoginTime(new Date());
 			resRow = userInfoManager.insertSelective(userInfo);
 		}
 		//用户存在 更新用户登录日期
 		else{
 			userInfo.setLoginTime(new Date());
-			resRow = userInfoManager.updateByPrimaryKey(userInfo);
+			UpdateCondition<UserInfo> userCondition = new UpdateCondition<>();
+			userCondition.setRecord(userInfo);
+			userCondition.setCols(Arrays.asList("loginTime"));
+			userCondition.setWheres(Arrays.asList("userPhone"));
+			resRow = userInfoManager.spUpdate(userCondition);
 		}
 		if(resRow==1){
 			res.put("state", "success");

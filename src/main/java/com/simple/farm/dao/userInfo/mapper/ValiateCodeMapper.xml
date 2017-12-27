@@ -1,6 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.simple.farm.dao.userInfo.ValiateCodeMapper">
+  <resultMap id="BaseResultMap" type="com.simple.farm.bean.userInfo.ValiateCodeKey">
+    <id column="user_phone" jdbcType="VARCHAR" property="userPhone" />
+    <id column="code" jdbcType="VARCHAR" property="code" />
+    <id column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <!-- <delete id="deleteByPrimaryKey" parameterType="com.simple.farm.bean.userInfo.ValiateCodeKey">
+    delete from valiate_code
+    where user_phone = #{userPhone,jdbcType=VARCHAR}
+      and code = #{code,jdbcType=VARCHAR}
+      and create_time = #{createTime,jdbcType=TIMESTAMP}
+  </delete>
+  <insert id="insert" parameterType="com.simple.farm.bean.userInfo.ValiateCodeKey">
+    insert into valiate_code (user_phone, code, create_time
+      )
+    values (#{userPhone,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.simple.farm.bean.userInfo.ValiateCodeKey">
+    insert into valiate_code
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userPhone != null">
+        user_phone,
+      </if>
+      <if test="code != null">
+        code,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userPhone != null">
+        #{userPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null">
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
   
   
   <select id="getLastValiateCode" parameterType="com.simple.farm.bean.userInfo.ValiateCode" resultType="com.simple.farm.bean.userInfo.ValiateCode">
@@ -9,6 +51,6 @@
 		user_phone = #{userPhone} and code = #{code}
 	</where>
 	order by create_time limit 1
-  </select>
+  </select> -->
   
 </mapper>

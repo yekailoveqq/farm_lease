@@ -63,7 +63,14 @@ login.userLogin = function(){
 	sendData.userPhone = $("#login_phone").val();
 	sendData.valiateCode = $("#login_phoneCode").val();
 	common.ajax('/user/userLogin','POST',sendData,function(result){
-		alert(result);
+		if(result.state=='error'){
+			alert("登录失败，"+result.msg);
+		}
+		//成功
+		else{
+			//关闭登录窗口
+			$('#loginModal').modal('hide');
+		}
 	},null,null,"application/x-www-form-urlencoded");
 	
 	

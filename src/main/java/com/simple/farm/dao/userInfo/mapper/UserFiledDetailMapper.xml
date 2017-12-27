@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.simple.farm.dao.userInfo.UserFiledDetailMapper">
+ <!--  <resultMap id="BaseResultMap" type="com.simple.farm.bean.userInfo.UserFiledDetail">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="filed_id" jdbcType="INTEGER" property="filedId" />
+    <result column="user_phone" jdbcType="VARCHAR" property="userPhone" />
+    <result column="term" jdbcType="INTEGER" property="term" />
+    <result column="begin_time" jdbcType="TIMESTAMP" property="beginTime" />
+    <result column="oever_time" jdbcType="TIMESTAMP" property="oeverTime" />
+    <result column="price" jdbcType="DOUBLE" property="price" />
+    <result column="total" jdbcType="DOUBLE" property="total" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, filed_id, user_phone, term, begin_time, oever_time, price, total
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user_filed_detail
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from user_filed_detail
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.simple.farm.bean.userInfo.UserFiledDetail">
+    insert into user_filed_detail (id, filed_id, user_phone, 
+      term, begin_time, oever_time, 
+      price, total)
+    values (#{id,jdbcType=INTEGER}, #{filedId,jdbcType=INTEGER}, #{userPhone,jdbcType=VARCHAR}, 
+      #{term,jdbcType=INTEGER}, #{beginTime,jdbcType=TIMESTAMP}, #{oeverTime,jdbcType=TIMESTAMP}, 
+      #{price,jdbcType=DOUBLE}, #{total,jdbcType=DOUBLE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.simple.farm.bean.userInfo.UserFiledDetail">
+    insert into user_filed_detail
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="filedId != null">
+        filed_id,
+      </if>
+      <if test="userPhone != null">
+        user_phone,
+      </if>
+      <if test="term != null">
+        term,
+      </if>
+      <if test="beginTime != null">
+        begin_time,
+      </if>
+      <if test="oeverTime != null">
+        oever_time,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="total != null">
+        total,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="filedId != null">
+        #{filedId,jdbcType=INTEGER},
+      </if>
+      <if test="userPhone != null">
+        #{userPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="term != null">
+        #{term,jdbcType=INTEGER},
+      </if>
+      <if test="beginTime != null">
+        #{beginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="oeverTime != null">
+        #{oeverTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="total != null">
+        #{total,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.simple.farm.bean.userInfo.UserFiledDetail">
+    update user_filed_detail
+    <set>
+      <if test="filedId != null">
+        filed_id = #{filedId,jdbcType=INTEGER},
+      </if>
+      <if test="userPhone != null">
+        user_phone = #{userPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="term != null">
+        term = #{term,jdbcType=INTEGER},
+      </if>
+      <if test="beginTime != null">
+        begin_time = #{beginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="oeverTime != null">
+        oever_time = #{oeverTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="total != null">
+        total = #{total,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.simple.farm.bean.userInfo.UserFiledDetail">
+    update user_filed_detail
+    set filed_id = #{filedId,jdbcType=INTEGER},
+      user_phone = #{userPhone,jdbcType=VARCHAR},
+      term = #{term,jdbcType=INTEGER},
+      begin_time = #{beginTime,jdbcType=TIMESTAMP},
+      oever_time = #{oeverTime,jdbcType=TIMESTAMP},
+      price = #{price,jdbcType=DOUBLE},
+      total = #{total,jdbcType=DOUBLE}
+    where id = #{id,jdbcType=INTEGER}
+  </update> -->
+</mapper>

@@ -1,11 +1,10 @@
 package com.simple.farm.dao.userInfo;
 
 import com.simple.farm.bean.userInfo.UserInfo;
+import com.simple.farm.common.extMybatis.SpMapper;
 
-import tk.mybatis.mapper.common.Mapper;
-
-public interface UserInfoMapper extends Mapper<UserInfo>{
-  /*  int deleteByPrimaryKey(String userPhone);
+public interface UserInfoMapper extends SpMapper<UserInfo>{
+   /* int deleteByPrimaryKey(String userPhone);
 
     int insert(UserInfo record);
 

@@ -40,7 +40,7 @@ public class SpWebParamBind implements HandlerMethodArgumentResolver{
 
 	@Override
 	public boolean supportsParameter(MethodParameter method) {
-		if(method.getParameterAnnotation(SpBindAnotation.class)!=null||method.getParameterAnnotation(SpBindValue.class)!=null){
+		if(method.getParameterAnnotation(SpBindAnotation.class)!=null){
 			return true;
 		}
 		return false;

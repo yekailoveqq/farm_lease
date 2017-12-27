@@ -51,5 +51,17 @@ public class UserManagerController {
 		return result;
 	}
 	
+	/**
+	 * 判断当前用户是否登录
+	 * @return
+	 */
+	@RequestMapping(value = "/isLogin")
+	public boolean isLogin(HttpServletRequest request){
+		boolean result = false;
+		if(WebUtils.getSessionAttribute(request, "NOW_USER_PHONE")!=null){
+			result = true;
+		}
+		return result;
+	}
 	
 }

@@ -14,6 +14,8 @@ public class FiledInfo {
     private String state;
     
     private Integer version;
+    
+    private double price;
 
     public Integer getId() {
         return id;
@@ -70,6 +72,15 @@ public class FiledInfo {
 	public void setVersion(Integer version) {
 		this.version = version;
 	}
+
+	public double getPrice() {
+		return price;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
+	}
     
+	
     
 }

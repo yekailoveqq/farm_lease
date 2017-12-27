@@ -5,10 +5,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.WebUtils;
 
 import com.github.pagehelper.Page;
 import com.simple.farm.bean.common.PageBean;
@@ -86,10 +89,23 @@ public class MerChantController {
 				o.put("id", filed.getId());	//编号
 				o.put("size", filed.getSize()); //大小
 				o.put("term", 1);	//租期 默认一个月
+				o.put("size", filed.getPrice()); //大小
 				o.put("del", "删除");
 				result.add(o);
 			}
 		}
+		return result;
+	}
+	
+	
+	@RequestMapping(value = "/finishedPay",method=RequestMethod.POST)
+	public boolean finishPay(@SpBindAnotation List<Map<String, Object>> details,HttpServletRequest request){
+		boolean result = false;
+		//获取当前登录用户 手机号
+		String userPhone = (String) WebUtils.getSessionAttribute(request, "NOW_USER_PHONE");
+		
+		
+		
 		return result;
 	}
 	

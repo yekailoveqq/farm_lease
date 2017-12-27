@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.simple.farm.dao.merChant.FiledInfoMapper">
-  <resultMap id="BaseResultMap" type="com.simple.farm.bean.merChant.FiledInfo">
+ <!--  <resultMap id="BaseResultMap" type="com.simple.farm.bean.merChant.FiledInfo">
     <result column="id" jdbcType="INTEGER" property="id" />
     <result column="merchantId" jdbcType="INTEGER" property="merchantid" />
     <result column="size" jdbcType="INTEGER" property="size" />
     <result column="monitorUrl" jdbcType="VARCHAR" property="monitorurl" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="state" jdbcType="VARCHAR" property="state" />
-  </resultMap>
+    <result column="size" jdbcType="INTEGER" property="size" />
+  </resultMap> -->
  <!--  <insert id="insert" parameterType="com.simple.farm.bean.merChant.FiledInfo">
     insert into filed_info (id, merchantId, size, 
       monitorUrl, name, state

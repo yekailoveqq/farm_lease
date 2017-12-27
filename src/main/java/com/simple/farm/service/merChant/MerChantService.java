@@ -1,6 +1,7 @@
 package com.simple.farm.service.merChant;
 
 import java.util.List;
+import java.util.Map;
 
 import com.github.pagehelper.Page;
 import com.simple.farm.bean.common.PageBean;
@@ -45,5 +46,8 @@ public interface MerChantService {
 	 * @return
 	 */
 	List<FiledInfo> getFiledInfos(List<Integer> ids);
+	
+	
+//	boolean finishedPay()
 	
 }
