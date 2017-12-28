@@ -1,6 +1,7 @@
 package com.simple.farm.web.controller.merchant;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +18,8 @@ import com.github.pagehelper.Page;
 import com.simple.farm.bean.common.PageBean;
 import com.simple.farm.bean.merChant.FiledInfo;
 import com.simple.farm.bean.merChant.MerchantInfo;
+import com.simple.farm.bean.userInfo.UserFiledDetail;
+import com.simple.farm.common.SpDateUtil;
 import com.simple.farm.service.merChant.MerChantService;
 import com.simple.farm.web.common.SpBindAnotation;
 
@@ -101,10 +104,23 @@ public class MerChantController {
 	@RequestMapping(value = "/finishedPay",method=RequestMethod.POST)
 	public boolean finishPay(@SpBindAnotation List<Map<String, Object>> details,HttpServletRequest request){
 		boolean result = false;
+		List<UserFiledDetail> userFiledDetails = new ArrayList<UserFiledDetail>();
 		//获取当前登录用户 手机号
 		String userPhone = (String) WebUtils.getSessionAttribute(request, "NOW_USER_PHONE");
-		
-		
+		if(userPhone!=null&&details!=null&&details.size()>0){
+			for(Map<String, Object> m:details){
+				UserFiledDetail detail = new UserFiledDetail();
+				detail.setFiledId((Integer) m.get("id"));
+				detail.setTerm((Integer) m.get("term"));
+				detail.setUserPhone(userPhone);
+				detail.setPrice((double) m.get("price"));
+				detail.setBeginTime(new Date());
+				detail.setTotal((double) m.get("price")*(Integer) m.get("term"));
+				detail.setOeverTime(SpDateUtil.addDate(detail.getBeginTime(), 5, detail.getTerm()));
+				userFiledDetails.add(detail);
+			}
+		}
+		//调用接口保存 支付记录 和 用户交易环节
 		
 		return result;
 	}

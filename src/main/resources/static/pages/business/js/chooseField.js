@@ -298,6 +298,7 @@ chooseFile.getPayInfo = function(){
 		var o = new Object();
 		o.id = v.id;
 		o.term = v.term;
+		o.price = v.price;
 		details.push(o);
 	});
 	return details;
