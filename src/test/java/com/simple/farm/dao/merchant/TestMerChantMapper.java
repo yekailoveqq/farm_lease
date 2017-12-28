@@ -1,5 +1,7 @@
 package com.simple.farm.dao.merchant;
 
+import java.util.Arrays;
+
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -25,5 +27,11 @@ public class TestMerChantMapper extends FarmLeaseApplicationTests{
 			merChantInfoMapper.insertSelective(chantInfo);
 		}
 		
+	}
+	
+	
+	@Test
+	public void testLock(){
+		merChantInfoMapper.removeLockState(Arrays.asList(1,2));
 	}
 }

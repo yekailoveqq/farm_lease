@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.simple.farm.dao.userInfo.ValiateCodeMapper">
-  <resultMap id="BaseResultMap" type="com.simple.farm.bean.userInfo.ValiateCodeKey">
+<!--   <resultMap id="BaseResultMap" type="com.simple.farm.bean.userInfo.ValiateCodeKey">
     <id column="user_phone" jdbcType="VARCHAR" property="userPhone" />
     <id column="code" jdbcType="VARCHAR" property="code" />
     <id column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-  </resultMap>
+  </resultMap> -->
   <!-- <delete id="deleteByPrimaryKey" parameterType="com.simple.farm.bean.userInfo.ValiateCodeKey">
     delete from valiate_code
     where user_phone = #{userPhone,jdbcType=VARCHAR}
