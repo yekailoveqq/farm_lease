@@ -52,6 +52,8 @@ common.initTable = function(tableId,columnsArray,url,queryParamsFunction,clickFu
 		search:false,
 		contentType:'application/json',
 		url:url,
+		pagination:'server',
+		queryParamsType:'',
 		queryParams:queryParamsFunction,
 		pageSize: 5,  
 		pageNumber: 1,  
