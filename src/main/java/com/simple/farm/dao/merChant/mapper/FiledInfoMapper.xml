@@ -68,6 +68,11 @@
   </update>
   
   
+  <update id="updateState">
+  	update filed_info set state = #{state} where id = #{id}
+  </update>
+  
+  
   <select id="getFiledInfos" resultType="com.simple.farm.bean.merChant.FiledInfo">
   	select * from filed_info
   	<where>

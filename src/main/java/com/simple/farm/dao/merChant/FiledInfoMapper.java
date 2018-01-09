@@ -24,4 +24,12 @@ public interface FiledInfoMapper extends Mapper<FiledInfo>{
 	 */
 	List<FiledInfo> getFiledInfos(@Param("ids")List<Integer> ids);
 	
+	/**
+	 * 根据主键修改地块状态
+	 * @param id
+	 * @param status
+	 * @return
+	 */
+	int updateState(@Param("id")int id,@Param("state")String state);
+	
 }

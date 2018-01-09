@@ -7,6 +7,7 @@ import com.github.pagehelper.Page;
 import com.simple.farm.bean.common.PageBean;
 import com.simple.farm.bean.merChant.FiledInfo;
 import com.simple.farm.bean.merChant.MerchantInfo;
+import com.simple.farm.bean.userInfo.UserFiledDetail;
 
 public interface MerChantService {
 
@@ -47,7 +48,11 @@ public interface MerChantService {
 	 */
 	List<FiledInfo> getFiledInfos(List<Integer> ids);
 	
-	
-//	boolean finishedPay()
+	/**
+	 * 支付完成保存支付明细和用户租赁关系
+	 * @param userFiledDetails
+	 * @return
+	 */
+	boolean finishedPay(List<UserFiledDetail> userFiledDetails) throws Exception;
 	
 }

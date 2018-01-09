@@ -15,4 +15,5 @@ public interface UserFiledDetailMapper extends SpMapper<UserFiledDetail>{
     int updateByPrimaryKeySelective(UserFiledDetail record);
 
     int updateByPrimaryKey(UserFiledDetail record);*/
+	
 }
