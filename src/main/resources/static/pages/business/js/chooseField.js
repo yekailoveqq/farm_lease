@@ -20,7 +20,6 @@ chooseFile.showModel = function(){
 		common.loadHtmlToBody("#indexBody","/pages/business/chooseField.html");
 	}
 	$('#chooseFieldModal').modal('show');
-	
 	//注册模态框 用户可见时候的事件
 	$('#chooseFieldModal').on('shown.bs.modal',function(){
 		//是否初始化步骤条
@@ -522,7 +521,12 @@ chooseFile.pay = function(){
 		if(result){
 			var details = chooseFile.getPayInfo();
 			common.ajax("/merchant/finishedPay","POST",JSON.stringify(details),function(result){
-				
+				if(result){
+					//关闭弹框
+					$('#chooseFieldModal').modal('hide');
+					//提示成功
+					alert("支付成功！")
+				}
 			});
 		}
 		//未登录

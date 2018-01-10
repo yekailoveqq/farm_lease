@@ -38,7 +38,8 @@ public class MerChantController {
 	@RequestMapping("/query")
 	public PageBean<MerchantInfo> queryList(MerchantInfo merChantInfo,PageBean<MerchantInfo> pageInfo){
 		Page<MerchantInfo> page = merChantService.getMerChanInfoList(merChantInfo, pageInfo);
-		pageInfo.setData(page.getResult());
+		pageInfo.setRows(page.getResult());
+		pageInfo.setTotal(page.getTotal());
 		return pageInfo;
 	}
 	
@@ -92,7 +93,7 @@ public class MerChantController {
 				o.put("id", filed.getId());	//编号
 				o.put("size", filed.getSize()); //大小
 				o.put("term", 1);	//租期 默认一个月
-				o.put("size", filed.getPrice()); //大小
+				o.put("price", filed.getPrice()); //价格
 				o.put("del", "删除");
 				result.add(o);
 			}
@@ -102,8 +103,7 @@ public class MerChantController {
 	
 	
 	@RequestMapping(value = "/finishedPay",method=RequestMethod.POST)
-	public boolean finishPay(@SpBindAnotation List<Map<String, Object>> details,HttpServletRequest request){
-		boolean result = false;
+	public boolean finishPay(@SpBindAnotation List<Map<String, Object>> details,HttpServletRequest request) throws Exception{
 		List<UserFiledDetail> userFiledDetails = new ArrayList<UserFiledDetail>();
 		//获取当前登录用户 手机号
 		String userPhone = (String) WebUtils.getSessionAttribute(request, "NOW_USER_PHONE");
@@ -113,16 +113,15 @@ public class MerChantController {
 				detail.setFiledId((Integer) m.get("id"));
 				detail.setTerm((Integer) m.get("term"));
 				detail.setUserPhone(userPhone);
-				detail.setPrice((double) m.get("price"));
+				detail.setPrice(Double.valueOf(m.get("price")+""));
 				detail.setBeginTime(new Date());
-				detail.setTotal((double) m.get("price")*(Integer) m.get("term"));
+				detail.setTotal(Double.valueOf( ((Integer) m.get("price")*(Integer) m.get("term"))+""));
 				detail.setOeverTime(SpDateUtil.addDate(detail.getBeginTime(), 5, detail.getTerm()));
 				userFiledDetails.add(detail);
 			}
 		}
 		//调用接口保存 支付记录 和 用户交易环节
-		
-		return result;
+		return merChantService.finishedPay(userFiledDetails);
 	}
 	
 }

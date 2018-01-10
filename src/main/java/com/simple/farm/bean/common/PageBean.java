@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class PageBean<T> {
 
-	private List<T> data;	//返回的列数据
+	private List<T> rows;	//返回的列数据
 	
 	private int pageSize;	//分页数
 	
@@ -29,13 +29,15 @@ public class PageBean<T> {
 	private String order;
 	
 	private String search;
+	
+	private long total;
 
-	public List<T> getData() {
-		return data;
+	public List<T> getRows() {
+		return rows;
 	}
 
-	public void setData(List<T> data) {
-		this.data = data;
+	public void setRows(List<T> rows) {
+		this.rows = rows;
 	}
 
 	public int getPageSize() {
@@ -108,6 +110,14 @@ public class PageBean<T> {
 
 	public void setSearch(String search) {
 		this.search = search;
+	}
+
+	public long getTotal() {
+		return total;
+	}
+
+	public void setTotal(long total) {
+		this.total = total;
 	}
 	
 	
