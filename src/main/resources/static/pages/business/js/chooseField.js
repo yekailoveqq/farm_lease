@@ -505,10 +505,10 @@ chooseFile.showFiledInfo = function(obj){
 	$("td[name='chooseField_showFieldInfo']").empty();
 	var linkD = $("<a>点击查看</a>");
 	linkD.attr('href',obj.monitorurl);
-	$("td[name='chooseField_showFieldInfo']")[0].append(obj.id);
-	$("td[name='chooseField_showFieldInfo']")[1].append(linkD[0]);
-	$("td[name='chooseField_showFieldInfo']")[2].append(obj.size);
-	$("td[name='chooseField_showFieldInfo']")[3].append(obj.state);
+	$($("td[name='chooseField_showFieldInfo']")[0]).append(obj.id);
+	$($("td[name='chooseField_showFieldInfo']")[1]).append(linkD[0]);
+	$($("td[name='chooseField_showFieldInfo']")[2]).append(obj.size);
+	$($("td[name='chooseField_showFieldInfo']")[3]).append(obj.state);
 }
 
 /**
