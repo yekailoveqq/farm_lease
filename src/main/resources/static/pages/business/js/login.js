@@ -4,15 +4,31 @@
 var login = new Object();
 
 login.showModel = function(){
-	//清空临时变量
-	chooseFile.chooseChantId = '';
-	//没有加载
-	if(!$("#login").length>0){
-		common.loadHtmlToBody("#indexBody","/pages/business/login.html");
-	}
-	$('#loginModal').modal('show');
 	
-	login.createCode();
+	
+	//判断是否登录
+	common.ajax("/user/isLogin","GET",null,function(result){
+		//已经登录
+		if(result){
+			//没有加载
+			if(!$("#userInfoModal").length>0){
+				common.loadHtmlToBody("#indexBody","/pages/business/userInfo.html");
+			}
+			$('#userInfoModal').modal('show');
+		}
+		//未登录
+		else{
+			//清空临时变量
+			chooseFile.chooseChantId = '';
+			//没有加载
+			if(!$("#login").length>0){
+				common.loadHtmlToBody("#indexBody","/pages/business/login.html");
+			}
+			$('#loginModal').modal('show');
+			
+			login.createCode();
+		}
+	});
 }
 
 
